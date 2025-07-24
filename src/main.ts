@@ -6,7 +6,7 @@ import { routes } from './app/app.routes';
 import { AppComponent } from './app/app.component';
 
 import { addIcons } from 'ionicons';
-import { briefcaseOutline, personOutline, peopleOutline, homeOutline, planetOutline, trashOutline } from 'ionicons/icons';
+import { briefcaseOutline, personOutline, peopleOutline, homeOutline, planetOutline, trashOutline, addOutline, readerOutline, createOutline, closeOutline, alertCircleOutline, pricetagsOutline } from 'ionicons/icons';
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -23,5 +23,11 @@ addIcons({
   'people-outline': peopleOutline,
   'home-outline': homeOutline,
   'planet-outline': planetOutline,
-  'trash-outline': trashOutline
+  'trash-outline': trashOutline,
+  'add-outline': addOutline,
+  'reader-outline': readerOutline,
+  'create-outline': createOutline,
+  'close-outline': closeOutline,
+  'alert-circle-outline': alertCircleOutline,
+  'pricetags-outline': pricetagsOutline
 });

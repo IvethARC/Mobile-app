@@ -1,20 +1,3 @@
-.custom-header {
-  --background: var(--ion-color-colorsecondseti);
-  padding: 1em;
-  margin: 0 !important;
-}
-.title-header{
-  background-color: var(--ion-color-colorseti);
-  color: var(--ion-color-colorseti-contrast);
-  font-family: "Montserrat", sans-serif;
-  font-weight: bold;
-}
-.main-header {
-  font-size: 1.5rem;
-}
-.date-header{
-  font-size: 1rem;
-}
 .card-title {
   display: flex;
   justify-content: space-between;
@@ -33,18 +16,6 @@
   font-size: 1rem;
 }
 
-.danger {
-  color: #e74c3c;
-}
-
-.success {
-  color: #2ecc71;
-}
-
-.warning {
-  color: #f1c40f;
-}
-
 ion-card-subtitle {
   font-family: "Montserrat", sans-serif;
   display: flex;
@@ -52,13 +23,35 @@ ion-card-subtitle {
 }
 
 ion-icon {
-  margin-right: 0.5em;
+  margin-right: 0.2em;
   font-size: large;
+}
+
+.no-left-padding {
+  padding: 0 0 0 1em;
+}
+
+.no-left-padding ion-item::part(native) {
+  padding-left: 0 !important;
 }
 
 ion-card-content {
   font-family: "Montserrat", sans-serif;
   font-size: 1rem;
   color: var(--ion-color-secondseti);
+}
+
+.custom-text {
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.75rem;
+  margin-right: 0.3em;
+}
+
+.fab-icon {
+  margin-left: 0.3em;
+  font-size: 14px;
+  stroke-width: 48px;
+  width: 1.8em;
+  height: 1.8em;
 }
 

@@ -7,14 +7,14 @@ export class PriorityColorPipe implements PipeTransform {
 
   transform(priority: string): string {
     switch (priority?.toLowerCase()) {
-      case 'high':
+      case 'alta':
         return 'danger';
-      case 'middle':
+      case 'media':
         return 'warning';
-      case 'low':
+      case 'baja':
         return 'success';
       default:
-        return 'medium'; 
+        return 'media'; 
     }
   }
 }

@@ -35,16 +35,29 @@
         {{item.description}}
       </ion-card-content>
 
-      <ion-row>
+      <ion-row  class="no-left-padding">
         <ion-item>
-          <ion-checkbox>Completado</ion-checkbox>
-        </ion-item>    
+          <ion-icon name="create-outline"></ion-icon>
+          <span class="custom-text">Actualizar tarea</span>
+        </ion-item>        
         <ion-item>
           <ion-icon name="trash-outline"></ion-icon>
-          Eliminar tarea
+          <span class="custom-text">Eliminar tarea</span>
         </ion-item>        
+        <ion-item>
+          <span class="custom-text">Completada</span>
+          <ion-checkbox color="colorseti"></ion-checkbox>
+        </ion-item>    
       </ion-row>
     
     </ion-card>
   </div>
+
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button color="colorseti" (click)="openAddTask()">
+      <ion-icon name="add-outline" class="fab-icon"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
 </ion-content>
+

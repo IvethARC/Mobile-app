@@ -1,0 +1,62 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="colorseti">
+    <div class="custom-header">
+        <div class="title-header">
+          <div class="main-header">Nueva tarea</div>
+          <div>
+            <ion-icon name="close-outline"
+                    (click)="close()"
+                    class="close-icon"></ion-icon>
+          </div>
+        </div>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-card>
+    
+    <ion-item>
+      <ion-textarea placeholder="Escriba el nombre de la tarea">
+      </ion-textarea>
+    </ion-item>
+    
+    <ion-item>
+      <ion-textarea placeholder="Descripción de la tarea">
+      </ion-textarea>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label class="select-label">
+        <ion-icon name="alert-circle-outline" class="select-icon"></ion-icon>
+        Prioridad
+      </ion-label>
+      <ion-select [(ngModel)]="priority"
+                  [ngClass]="priority | priorityColor"
+                  [interfaceOptions]="customAlertOptions">
+        <ion-select-option value="alta">Alta</ion-select-option>
+        <ion-select-option value="media">Media</ion-select-option>
+        <ion-select-option value="baja">Baja</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label class="select-label">
+        <ion-icon name="pricetags-outline" class="select-icon"></ion-icon>
+        Categoría
+      </ion-label>
+      <ion-select [interfaceOptions]="customCategoryAlertOptions">
+        <ion-select-option value="trabajo">Trabajo</ion-select-option>
+        <ion-select-option value="personal">Personal</ion-select-option>
+        <ion-select-option value="familiar">Familiar</ion-select-option>
+        <ion-select-option value="hogar">Hogar</ion-select-option>
+        <ion-select-option value="otra">Otra</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-button expand="full" color="colorseti" (click)="close()">
+      Agregar tarea
+    </ion-button>
+    
+    
+  </ion-card>
+</ion-content>
