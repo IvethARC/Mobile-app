@@ -1,28 +1,32 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { IonicModule } from '@ionic/angular';
 import { PriorityColorPipe } from '../pipes/priority-color.pipe';
 import { ToDoListService } from '../services/to-do-list.service';
 import { Task } from '../services/to-do-list.service';
 
-
 @Component({
-  selector: 'app-add-task',
   standalone: true,
-  imports: [IonicModule,
-            CommonModule,
-            FormsModule,
-            PriorityColorPipe,
-            ReactiveFormsModule
-          ],
+  selector: 'app-add-task',
+  imports: [
+    IonicModule,
+    CommonModule,
+    FormsModule,
+    PriorityColorPipe,
+    ReactiveFormsModule,
+  ],
   templateUrl: './add-task.page.html',
   styleUrls: ['./add-task.page.scss'],
 })
 export class AddTaskPage implements OnInit {
-
   @Input() existingTask?: Task;
   priorities: string[] = [];
   categories: string[] = [];
@@ -34,28 +38,29 @@ export class AddTaskPage implements OnInit {
   customAlertOptions: any = {
     header: 'Prioridad',
     subHeader: 'Segun urgencia de ejeccuión',
-    translucent: true
+    translucent: true,
   };
   customCategoryAlertOptions: any = {
     header: 'Categoria',
     subHeader: 'Seleccione el tipo de tarea',
-    translucent: true
+    translucent: true,
   };
 
   myForm: FormGroup;
 
-  constructor(private modalCtrl: ModalController,
-              private toDoService: ToDoListService,
-              private fb: FormBuilder
+  constructor(
+    private modalCtrl: ModalController,
+    private toDoService: ToDoListService,
+    private fb: FormBuilder
   ) {
-      this.priorities = this.toDoService.priorities;
-      this.categories = this.toDoService.categories;
+    this.priorities = this.toDoService.priorities;
+    this.categories = this.toDoService.categories;
 
-      this.myForm = this.fb.group({
-        taskTitle: ['', Validators.required],
-        taskDescription: [''],
-        priority: ['', Validators.required],
-        category: ['', Validators.required]
+    this.myForm = this.fb.group({
+      taskTitle: ['', Validators.required],
+      taskDescription: [''],
+      priority: ['', Validators.required],
+      category: ['', Validators.required],
     });
   }
 
@@ -65,7 +70,7 @@ export class AddTaskPage implements OnInit {
         taskTitle: this.existingTask.title,
         taskDescription: this.existingTask.description,
         priority: this.existingTask.priority,
-        category: this.existingTask.category
+        category: this.existingTask.category,
       });
     }
   }
@@ -84,7 +89,7 @@ export class AddTaskPage implements OnInit {
       description: formValues.taskDescription,
       category: formValues.category,
       priority: formValues.priority,
-      completed: this.existingTask?.completed || false
+      completed: this.existingTask?.completed || false,
     };
 
     if (this.existingTask) {
@@ -95,7 +100,4 @@ export class AddTaskPage implements OnInit {
 
     this.close();
   }
-
-
-
 }

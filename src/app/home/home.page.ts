@@ -9,59 +9,55 @@ import { AddTaskPage } from '../add-task/add-task.page';
 import { ToDoListService, Task } from '../services/to-do-list.service';
 
 @Component({
-  selector: 'app-home',
   standalone: true,
+  selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
-  imports: [ 
+  imports: [
     CommonModule,
     IonicModule,
+    FormsModule,
     PriorityColorPipe,
     CategoryIconPipe,
-    FormsModule,
-    AddTaskPage
-  ]
+  ],
 })
 export class HomePage {
   toDoList: Task[] = [];
   today: Date = new Date();
 
-  constructor(private toDoService: ToDoListService,
-              public modalController: ModalController) {
-  }
+  constructor(
+    private toDoService: ToDoListService,
+    public modalController: ModalController
+  ) {}
 
-    ngOnInit() {
-    this.toDoService.getTasks().subscribe(tasks => {
+  ngOnInit() {
+    this.toDoService.getTasks().subscribe((tasks) => {
       this.toDoList = tasks;
     });
   }
 
-  async openAddTask(){
+  async openAddTask() {
     const modal = await this.modalController.create({
       component: AddTaskPage,
-    })
-  return await modal.present();
+    });
+    return await modal.present();
   }
 
   deleteTask(id: number) {
-  this.toDoService.deleteTask(id);
+    this.toDoService.deleteTask(id);
   }
 
   toggleCompleted(id: number) {
-  this.toDoService.toggleCompleted(id);
-}
+    this.toDoService.toggleCompleted(id);
+  }
 
-async editTask(task: Task) {
-  const modal = await this.modalController.create({
-    component: AddTaskPage,
-    componentProps: {
-      existingTask: task
-    }
-  });
-  return await modal.present();
-}
-
-
-
-
+  async editTask(task: Task) {
+    const modal = await this.modalController.create({
+      component: AddTaskPage,
+      componentProps: {
+        existingTask: task,
+      },
+    });
+    return await modal.present();
+  }
 }
