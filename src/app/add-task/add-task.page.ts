@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
@@ -6,6 +6,8 @@ import { ModalController } from '@ionic/angular';
 import { IonicModule } from '@ionic/angular';
 import { PriorityColorPipe } from '../pipes/priority-color.pipe';
 import { ToDoListService } from '../services/to-do-list.service';
+import { Task } from '../services/to-do-list.service';
+
 
 @Component({
   selector: 'app-add-task',
@@ -21,6 +23,7 @@ import { ToDoListService } from '../services/to-do-list.service';
 })
 export class AddTaskPage implements OnInit {
 
+  @Input() existingTask?: Task;
   priorities: string[] = [];
   categories: string[] = [];
   title: string = '';
@@ -56,28 +59,43 @@ export class AddTaskPage implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    if (this.existingTask) {
+      this.myForm.patchValue({
+        taskTitle: this.existingTask.title,
+        taskDescription: this.existingTask.description,
+        priority: this.existingTask.priority,
+        category: this.existingTask.category
+      });
+    }
+  }
 
   close() {
     this.modalCtrl.dismiss();
   }
 
-onAddNewTask() {
-  if (this.myForm.invalid) return;
+  onAddNewTask() {
+    if (this.myForm.invalid) return;
+    const formValues = this.myForm.value;
 
-  const formValues = this.myForm.value;
+    const task: Task = {
+      id: this.existingTask?.id || Date.now(),
+      title: formValues.taskTitle,
+      description: formValues.taskDescription,
+      category: formValues.category,
+      priority: formValues.priority,
+      completed: this.existingTask?.completed || false
+    };
 
-  const newTask = {
-    id: Date.now(),
-    title: formValues.taskTitle,
-    description: formValues.taskDescription,
-    category: formValues.category,
-    priority: formValues.priority
-  };
+    if (this.existingTask) {
+      this.toDoService.updateTask(task);
+    } else {
+      this.toDoService.addTask(task);
+    }
 
-  this.toDoService.addTask(newTask);
-  this.close();
-}
+    this.close();
+  }
+
 
 
 }

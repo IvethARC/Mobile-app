@@ -4,9 +4,9 @@ import { CommonModule } from '@angular/common';
 import { PriorityColorPipe } from '../pipes/priority-color.pipe';
 import { CategoryIconPipe } from '../pipes/category-icon.pipe';
 import { FormsModule } from '@angular/forms';
-import { IonModal} from '@ionic/angular/standalone';
 import { ModalController } from '@ionic/angular';
 import { AddTaskPage } from '../add-task/add-task.page';
+import { ToDoListService, Task } from '../services/to-do-list.service';
 
 @Component({
   selector: 'app-home',
@@ -23,46 +23,17 @@ import { AddTaskPage } from '../add-task/add-task.page';
   ]
 })
 export class HomePage {
-
-  @ViewChild(IonModal) modal!: IonModal;
-
-  message = 'This modal example uses triggers to automatically open a modal when the button is clicked.';
-  name!: string;
-
-  toDoList = [
-    {
-      title: 'Estudiar Java',
-      category: 'Trabajo',
-      priority: 'Alta',
-      description: 'Terminar modulo pendiente para finalizar curso'
-    },
-    {
-      title: 'Meditar minimo 30 minutos',
-      category: 'Personal',
-      priority: 'Media',
-      description: 'Meditacion recomendada dada la semana en curso'    },
-    {
-      title: 'Ir a cenar con tus padres',
-      category: 'Familiar',
-      priority: 'Baja',
-      description: 'Recuerda la cena pendiente que tenes con ellos'
-    },
-    {
-      title: 'Reparar la freidora de aire',
-      category: 'Hogar',
-      priority: 'Alta',
-      description: 'No olvides llevar el aparato al tecnico'
-    },
-    {
-      title: 'Jugar PS4',
-      category: 'Otra',
-      priority: 'Alta',
-      description: 'Aprovecha estas libre hoy'
-    }
-  ];
-
+  toDoList: Task[] = [];
   today: Date = new Date();
-  constructor(public modalController: ModalController) {
+
+  constructor(private toDoService: ToDoListService,
+              public modalController: ModalController) {
+  }
+
+    ngOnInit() {
+    this.toDoService.getTasks().subscribe(tasks => {
+      this.toDoList = tasks;
+    });
   }
 
   async openAddTask(){
@@ -71,6 +42,26 @@ export class HomePage {
     })
   return await modal.present();
   }
+
+  deleteTask(id: number) {
+  this.toDoService.deleteTask(id);
+  }
+
+  toggleCompleted(id: number) {
+  this.toDoService.toggleCompleted(id);
+}
+
+async editTask(task: Task) {
+  const modal = await this.modalController.create({
+    component: AddTaskPage,
+    componentProps: {
+      existingTask: task
+    }
+  });
+  return await modal.present();
+}
+
+
 
 
 }
