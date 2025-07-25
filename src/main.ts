@@ -16,7 +16,6 @@ bootstrapApplication(AppComponent, {
   ],
 });
 
-
 addIcons({
   'briefcase-outline': briefcaseOutline,
   'person-outline': personOutline,

@@ -15,48 +15,67 @@
 
 <ion-content [fullscreen]="true">
   <ion-card>
-    
-    <ion-item>
-      <ion-textarea placeholder="Escriba el nombre de la tarea">
-      </ion-textarea>
-    </ion-item>
-    
-    <ion-item>
-      <ion-textarea placeholder="Descripción de la tarea">
-      </ion-textarea>
-    </ion-item>
-    
-    <ion-item>
-      <ion-label class="select-label">
-        <ion-icon name="alert-circle-outline" class="select-icon"></ion-icon>
-        Prioridad
-      </ion-label>
-      <ion-select [(ngModel)]="priority"
-                  [ngClass]="priority | priorityColor"
-                  [interfaceOptions]="customAlertOptions">
-        <ion-select-option value="alta">Alta</ion-select-option>
-        <ion-select-option value="media">Media</ion-select-option>
-        <ion-select-option value="baja">Baja</ion-select-option>
-      </ion-select>
-    </ion-item>
-    <ion-item>
-      <ion-label class="select-label">
-        <ion-icon name="pricetags-outline" class="select-icon"></ion-icon>
-        Categoría
-      </ion-label>
-      <ion-select [interfaceOptions]="customCategoryAlertOptions">
-        <ion-select-option value="trabajo">Trabajo</ion-select-option>
-        <ion-select-option value="personal">Personal</ion-select-option>
-        <ion-select-option value="familiar">Familiar</ion-select-option>
-        <ion-select-option value="hogar">Hogar</ion-select-option>
-        <ion-select-option value="otra">Otra</ion-select-option>
-      </ion-select>
-    </ion-item>
+    <form [formGroup]="myForm" (ngSubmit)="onAddNewTask()">
+      <ion-item>
+        <ion-textarea placeholder="Escriba el nombre de la tarea"
+                      formControlName="taskTitle"
+                      [counter]="true"
+                      minlength="2"
+                      maxlength="27"
+                      errorText="Campo es requerido">
+        </ion-textarea>
+      </ion-item>
+      
+      <ion-item>
+        <ion-textarea placeholder="Descripción de la tarea"
+                      formControlName="taskDescription"
+                      [counter]="true"
+                      maxlength="100"
+                      errorText="Campo es requerido">
+        </ion-textarea>
+      </ion-item>
+      
+      <ion-item>
+        <ion-label class="select-label">
+          <ion-icon name="alert-circle-outline" 
+                    class="select-icon">
+          </ion-icon>
+            Prioridad
+        </ion-label>
+        <ion-select [ngClass]="myForm.get('priority')?.value | priorityColor"
+                    [interfaceOptions]="customAlertOptions"
+                    formControlName="priority"
+                    value="Baja">
+          <ion-select-option *ngFor="let item of priorities"
+                            [value]="item">
+            {{item}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+      
+      <ion-item>
+        <ion-label class="select-label">
+          <ion-icon name="pricetags-outline"
+                    class="select-icon">
+          </ion-icon>
+            Categoría
+        </ion-label>
+        <ion-select [interfaceOptions]="customCategoryAlertOptions"
+                    formControlName="category"
+                    value="Otros">
+          <ion-select-option *ngFor="let item of categories"
+                            [value]="item">
+            {{item}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
 
-    <ion-button expand="full" color="colorseti" (click)="close()">
-      Agregar tarea
-    </ion-button>
+      <ion-button expand="full"
+                  color="colorseti"
+                  type="submit">
+        Agregar tarea
+      </ion-button>
     
-    
+    </form>
   </ion-card>
 </ion-content>
